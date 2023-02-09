@@ -38,11 +38,16 @@ def synthesize_and_play(speech_config, text_box):
     # Clear the text box and any text that was in it
     text_box.delete("1.0", "end")
 
-def main(speech_config):    
+def main(voice_options):    
+    # Configure a speech synthesizer for each voice in voice_options.txt, use a dictionary to store the configs
+    speech_configs = {}
+    for voice in voice_options:
+        speech_configs[voice] = configure_speech_synthesizer("<KEYHERE>", "eastus", voice)
+
     # Create a simple GUI using tkinter
     root = tk.Tk()
     root.title("Text to Speech - Neural Synthesis")
-    root.geometry("800x148")
+    root.geometry("800x150")
     # Disable resizing the GUI
     root.resizable(False, False)
 
@@ -68,21 +73,25 @@ def main(speech_config):
     separator = tk.Frame(height=2, bd=1, relief=tk.SUNKEN)
     separator.pack(fill=tk.X, padx=5, pady=5)
 
-    # Create a button to synthesize the text and then play the audio.
-    button = tk.Button(root, text="Synthesize and Play", command=lambda: synthesize_and_play(speech_config, text_box))
-    button.pack()
+    # Add a drop-down menu to select the voice from the speech_configs dictionary, use key as the text and value will be the speech config
+    voice_menu = tk.OptionMenu(root, voice_var, *speech_configs.keys())
+    voice_menu.pack()
+
+    # Create a button to synthesize the text and then play the audio. Visually hide the button
+    button = tk.Button(root, text="Synthesize and Play", command=lambda: synthesize_and_play(speech_configs[voice_var.get()], text_box))   
+    button.pack_forget()
 
     # Configure the button to be pressed if I hit Ctrl+Enter
-    root.bind("<Return>", lambda event: synthesize_and_play(speech_config, text_box))
+    root.bind("<Return>", lambda event: synthesize_and_play(speech_configs[voice_var.get()], text_box))
     
     # Start the GUI
     root.mainloop()
 
 # Call the main function
 if __name__ == "__main__":
-    # Read the voice from a config file called voice.txt, remove any newlines
-    with open("voice.txt", "r") as f:
-        voice = f.read().replace("\n", "")
-    # Configure the speech synthesizer
-    speech_config = configure_speech_synthesizer("<INSERT KEY HERE>", "eastus", voice)
-    main(speech_config)
+    # Read all the voices from the voice_options.txt file into a list
+    voice_options = []
+    with open("voice_options.txt", "r") as f:
+        for line in f:
+            voice_options.append(line.strip())
+    main(voice_options)

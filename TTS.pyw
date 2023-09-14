@@ -42,7 +42,7 @@ def main(voice_options):
     # Configure a speech synthesizer for each voice in voice_options.txt, use a dictionary to store the configs
     speech_configs = {}
     for voice in voice_options:
-        speech_configs[voice] = configure_speech_synthesizer("<KEYHERE>", "eastus", voice)
+        speech_configs[voice] = configure_speech_synthesizer("<ENTER YOUR KEY HERE>", "eastus", voice)
 
     # Create a simple GUI using tkinter
     root = tk.Tk()

@@ -7,11 +7,24 @@ from dotenv import load_dotenv
 from elevenlabs import play
 from elevenlabs.client import ElevenLabs
 
+# All voices
+voices = {
+    "Kyana": "3wZbmt7q1ZGa1v0w9nvu",
+    "Villain": "eVItLK1UvXctxuaRV2Oq",
+    "Jessica": "flHkNRp1BlvT73UL6gyz",
+    "Romance": "FeJtVBW106P4mvgGebAg",
+    "Natasha": "PB6BdkFkZLbI39GHdnbQ",
+    "Bianca": "2bk7ULW9HfwvcIbMWod0",
+    "Vanessa": "8DzKSPdgEQPaK5vKG0Rs",
+    "Amelia": "ZF6FPAbjXT4488VcRRnw",
+    "Arabella": "aEO01A4wXwd1O8GPgGlF",
+}
+
 
 def synthesize_and_play(client: ElevenLabs, text_box: tk.Text):
     audio = client.text_to_speech.convert(
         text=text_box.get("1.0", "end-1c"),
-        voice_id="aEO01A4wXwd1O8GPgGlF",
+        voice_id=voices["Arabella"],
         model_id="eleven_flash_v2_5",
         output_format="mp3_44100_128",
         optimize_streaming_latency=1,
@@ -20,6 +33,7 @@ def synthesize_and_play(client: ElevenLabs, text_box: tk.Text):
     play(audio, use_ffmpeg=False)
 
     text_box.delete("1.0", "end")
+
 
 def main(client: ElevenLabs):
     # Create a simple GUI using tkinter
@@ -54,6 +68,7 @@ def main(client: ElevenLabs):
 
     # Start the GUI
     root.mainloop()
+
 
 if __name__ == "__main__":
     load_dotenv()

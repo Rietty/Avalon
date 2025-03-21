@@ -24,7 +24,7 @@ voices = {
 def synthesize_and_play(client: ElevenLabs, text_box: tk.Text):
     audio = client.text_to_speech.convert(
         text=text_box.get("1.0", "end-1c"),
-        voice_id=voices["Arabella"],
+        voice_id=voices["Kyana"],
         model_id="eleven_flash_v2_5",
         output_format="mp3_44100_128",
         optimize_streaming_latency=1,

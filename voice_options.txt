@@ -1,7 +1,0 @@
-en-US-AriaNeural
-en-CA-ClaraNeural
-fr-FR-CelesteNeural
-it-IT-ElsaNeural
-en-GB-HollieNeural
-es-AR-ElenaNeural
-ja-JP-AoiNeural

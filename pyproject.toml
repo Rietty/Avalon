@@ -1,0 +1,9 @@
+[project]
+name = "Avalon"
+version = "0.1.0"
+description = "Text to Speech via ElevenLabs API!"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "PyQt6"
+]
